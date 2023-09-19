@@ -1,0 +1,56 @@
+<!DOCTYPE html> <!-- CHANGE FILE EXTENSION-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <!-- <link rel="stylesheet" href="\css\styles.css"> -->
+    <style>
+    .selected {text-decoration: line-through;}
+    </style>
+</head>
+<body>
+    <div>
+        <h1>To-Do Checklist</h1>
+    </div>
+    <div>
+        <h2><%= new Date() %></h2>
+    </div>
+    <div>
+        <fieldset>
+            <legend>What are you going to do today?</legend>
+            
+            <ul>
+            <% for(let i=0; i < tTasks.length; i++){ %>
+                <li>
+                    <label for="test<%= i %>" class="task<%=i%>"><%= tTasks[i] %></label>
+                    <input type="checkbox" class="taskCheck" id="test<%= i %>">
+                    <% console.log("task"+i) %>
+                </li>
+            <% } %>
+            </ul>
+            
+            <form action="/submit" method="POST">
+                <input type="text" name="newUserTask" placeholder="Add new task">
+                <input type="submit" value="Add">
+            </form>
+        </fieldset>
+    </div>
+
+    <script> //checkbox checker, used outside js file due to DOM not being rendered until client request
+    document.querySelectorAll(".taskCheck").forEach(item =>{
+    item.addEventListener("change", function(){
+        if(this.checked){
+            console.log("Checkbox is checked..");
+            let idCheck = this.id;
+            document.querySelector(`label[for="${idCheck}"]`).classList.add("selected");
+        } else {
+            console.log("Checkbox is not checked..");
+            let idCheck = this.id;
+            document.querySelector(`label[for="${idCheck}"]`).classList.remove("selected");
+        }
+        })
+    })
+    </script>
+</body>
+</html>

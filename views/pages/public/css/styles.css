@@ -1,0 +1,6 @@
+body{
+    background-color: red;
+}
+.selected{
+    text-decoration: line-through;
+}
